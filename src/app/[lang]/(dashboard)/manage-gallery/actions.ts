@@ -15,7 +15,7 @@ export async function uploadGalleryPhoto(formData: FormData) {
     // Use Service Role Key to bypass RLS for the gallery bucket
     const supabaseAdmin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
+      process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     );
 
     const uploadedUrls: string[] = [];
@@ -88,12 +88,12 @@ export async function uploadGalleryPhoto(formData: FormData) {
 }
 
 export async function getGalleryPhotos() {
-  const supabaseAdmin = createClient(
+  const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 
-  const { data, error } = await supabaseAdmin
+  const { data, error } = await supabase
     .from('photos')
     .select('*')
     .order('created_at', { ascending: false });
@@ -110,7 +110,7 @@ export async function deleteGalleryPhoto(id: string) {
   try {
     const supabaseAdmin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
+      process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     );
 
     // Get the photo record to find its URLs
@@ -164,7 +164,7 @@ export async function updateGalleryPhoto(id: string, caption: string) {
   try {
     const supabaseAdmin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
+      process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     );
 
     const { error } = await supabaseAdmin

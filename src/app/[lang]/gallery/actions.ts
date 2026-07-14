@@ -7,7 +7,7 @@ export const getPublicGalleryData = unstable_cache(async () => {
   // Use the service role key to bypass RLS for public gallery read
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 
   // Fetch completed projects that have show_in_gallery = true
