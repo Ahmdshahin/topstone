@@ -14,21 +14,25 @@ function getLocale(request: NextRequest): string {
 }
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  try {
+    const { pathname } = request.nextUrl;
 
-  // 1. Handle i18n Routing
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
+    // 1. Handle i18n Routing
+    const pathnameHasLocale = locales.some(
+      (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+    );
 
-  if (!pathnameHasLocale) {
-    const locale = getLocale(request);
-    request.nextUrl.pathname = `/${locale}${pathname}`;
-    return NextResponse.redirect(request.nextUrl);
+    if (!pathnameHasLocale) {
+      const locale = getLocale(request);
+      request.nextUrl.pathname = `/${locale}${pathname}`;
+      return NextResponse.redirect(request.nextUrl);
+    }
+
+    // 2. Handle Supabase Auth (on the rewritten/redirected URL)
+    return await updateSession(request);
+  } catch (error: any) {
+    return new Response(`Middleware Error: ${error?.message || String(error)}`, { status: 500 });
   }
-
-  // 2. Handle Supabase Auth (on the rewritten/redirected URL)
-  return await updateSession(request);
 }
 
 export const config = {
