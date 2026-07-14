@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 "use client";
 
 import { useState, useEffect } from "react";
@@ -47,7 +48,7 @@ export default function ManageGalleryPage() {
     if (res.success) {
       fetchAlbums();
     } else {
-      alert(res.error || "Failed to delete album");
+      toast.error(res.error || "Failed to delete album");
     }
   };
 
@@ -62,7 +63,7 @@ export default function ManageGalleryPage() {
       setEditingAlbumId(null);
       fetchAlbums();
     } else {
-      alert(res.error || "Failed to update album");
+      toast.error(res.error || "Failed to update album");
     }
   };
 

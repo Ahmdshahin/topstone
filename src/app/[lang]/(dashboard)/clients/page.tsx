@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -105,7 +106,7 @@ export default function ClientsPage() {
       setIsDialogOpen(false);
     } catch (error: any) {
       console.error("Failed to save client", error);
-      alert(`Failed to save client.\n\nDatabase Error: ${error?.message || JSON.stringify(error)}\n\nPlease ensure you have run the Database SQL script in database_setup.md.`);
+      toast.error(`Failed to save client.\n\nDatabase Error: ${error?.message || JSON.stringify(error)}\n\nPlease ensure you have run the Database SQL script in database_setup.md.`);
     } finally {
       setIsSaving(false);
     }
@@ -132,7 +133,7 @@ export default function ClientsPage() {
       setClients(clients.filter(c => c.id !== id));
     } catch (error: any) {
       console.error(error);
-      alert("Failed to delete client: " + error.message);
+      toast.error("Failed to delete client: " + error.message);
     }
   };
 

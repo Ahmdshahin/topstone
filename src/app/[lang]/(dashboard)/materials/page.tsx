@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -78,7 +79,7 @@ export default function MaterialsPage() {
       setNewCategoryName("");
       fetchMaterials();
     } catch (error: any) {
-      alert("Failed to add category: " + error.message);
+      toast.error("Failed to add category: " + error.message);
     }
   };
 
@@ -90,7 +91,7 @@ export default function MaterialsPage() {
       if (error) throw error;
       fetchMaterials();
     } catch (error: any) {
-      alert("Failed to delete category: " + error.message);
+      toast.error("Failed to delete category: " + error.message);
     }
   };
 
@@ -146,7 +147,7 @@ export default function MaterialsPage() {
       resetForm();
     } catch (error: any) {
       console.error(error);
-      alert("Error saving material: " + (error.message || "Unknown error"));
+      toast.error("Error saving material: " + (error.message || "Unknown error"));
     } finally {
       setIsSubmitting(false);
     }
@@ -160,7 +161,7 @@ export default function MaterialsPage() {
       if (error) throw error;
       setMaterials(materials.filter(m => m.id !== id));
     } catch (error: any) {
-      alert("Failed to delete: " + error.message);
+      toast.error("Failed to delete: " + error.message);
     }
   };
 

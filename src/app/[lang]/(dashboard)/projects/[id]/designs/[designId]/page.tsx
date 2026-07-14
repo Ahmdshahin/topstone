@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
@@ -78,7 +79,7 @@ export default function PresentationEditorPage({
       logger.info(`Uploaded ${field}`, { designId });
     } catch (error) {
       logger.error(`Failed to upload ${field}`, { error });
-      alert("Upload failed.");
+      toast.error("Upload failed.");
     } finally {
       setIsSaving(false);
     }
@@ -97,7 +98,7 @@ export default function PresentationEditorPage({
         .eq('id', designId);
       
       logger.info("Saved design details", { designId });
-      alert("Details saved successfully!");
+      toast.success("Details saved successfully!");
     } catch (error) {
       logger.error("Failed to save details", { error });
     } finally {

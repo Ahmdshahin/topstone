@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -182,7 +183,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
     } catch (error: any) {
       logger.error("Upload failed", { error, projectId: id });
       console.error("Upload failed:", error);
-      alert("Failed to upload model.");
+      toast.error("Failed to upload model.");
     } finally {
       setIsUploading(false);
     }
@@ -232,7 +233,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
       setIsAfterPhotoDialogOpen(false);
     } catch (error) {
       logger.error(`Failed to upload ${field}`, { error });
-      alert("Upload failed.");
+      toast.error("Upload failed.");
     } finally {
       setIsSavingDetails(false);
     }
@@ -262,7 +263,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
       if (newLogs) setRecentActivity(newLogs);
     } catch (error) {
       console.error(error);
-      alert("Failed to select image.");
+      toast.error("Failed to select image.");
     } finally {
       setIsSavingDetails(false);
     }
@@ -301,7 +302,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
     } catch (error: any) {
       logger.error("Failed to update project", { error, projectId: id, editForm });
       console.error("Failed to update project", error);
-      alert("Failed to update project. Error: " + (error?.message || JSON.stringify(error)));
+      toast.error("Failed to update project. Error: " + (error?.message || JSON.stringify(error)));
     } finally {
       setIsSavingEdit(false);
     }
@@ -325,7 +326,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
       const { data: newLogs } = await supabase.from('system_logs').select('*').contains('metadata', { projectId: id }).order('created_at', { ascending: false }).limit(5);
       if (newLogs) setRecentActivity(newLogs);
       
-      alert("Commercial details saved successfully!");
+      toast.success("Commercial details saved successfully!");
     } catch (error) {
       logger.error("Failed to save details", { error });
     } finally {
@@ -363,7 +364,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
       if (newLogs) setRecentActivity(newLogs);
     } catch (err: any) {
       console.error(err);
-      alert("Failed to assign materials: " + err.message);
+      toast.error("Failed to assign materials: " + err.message);
     } finally {
       setIsSavingMaterials(false);
     }

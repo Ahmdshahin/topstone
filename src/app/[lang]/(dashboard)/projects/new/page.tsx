@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -223,7 +224,7 @@ export default function ProjectCreationWizard() {
       router.push(`/${lang}/projects/${projectId}`);
     } catch (err: any) {
       console.error("Failed to create project:", err);
-      alert(`Failed to create project.\n\nDatabase Error: ${err?.message || JSON.stringify(err)}\n\nPlease ensure you have run the latest Database SQL script in database_setup.md.`);
+      toast.error(`Failed to create project.\n\nDatabase Error: ${err?.message || JSON.stringify(err)}\n\nPlease ensure you have run the latest Database SQL script in database_setup.md.`);
       setIsSubmitting(false);
       setUploadProgress("");
     }
@@ -290,7 +291,7 @@ export default function ProjectCreationWizard() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit, (errors) => {
           console.error("Form validation failed:", errors);
-          alert("Validation failed: Please go back to Step 1 and check your inputs (Title, Client, URL).");
+          toast.error("Validation failed: Please go back to Step 1 and check your inputs (Title, Client, URL).");
         })}>
           <Card className="shadow-sm border-border bg-card overflow-hidden">
             <CardHeader className="bg-secondary/20 border-b border-border">

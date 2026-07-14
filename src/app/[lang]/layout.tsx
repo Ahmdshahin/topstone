@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { TranslationProvider } from "@/providers/translation-provider";
 import { OfflineToast } from "@/components/ui/offline-toast";
 import { getDictionary } from "@/lib/dictionaries";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const cairo = Cairo({ subsets: ["arabic", "latin"], variable: "--font-cairo" });
@@ -44,6 +45,7 @@ export default async function RootLayout({
           <TranslationProvider lang={lang} dict={dict}>
             <AuthProvider>
               {children}
+              <Toaster position="top-center" richColors theme="system" />
               <OfflineToast />
             </AuthProvider>
           </TranslationProvider>

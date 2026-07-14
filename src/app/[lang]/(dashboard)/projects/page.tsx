@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -98,7 +99,7 @@ export default function ProjectsPage() {
       
       setProjects(projects.filter(p => p.id !== id));
     } catch (err: any) {
-      alert("Failed to delete project: " + err.message);
+      toast.error("Failed to delete project: " + err.message);
     }
   };
 
