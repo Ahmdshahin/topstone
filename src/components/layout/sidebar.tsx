@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
-export function Sidebar() {
+export function Sidebar({ className }: { className?: string }) {
   const pathname = usePathname();
   const { profile, signOut } = useAuth();
   const { dict, lang } = useTranslation();
@@ -45,7 +45,7 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-64 border-r border-border bg-card flex flex-col h-screen hidden md:flex">
+    <aside className={cn("w-64 border-r border-border bg-card flex flex-col h-screen", className || "hidden md:flex")}>
       <div className="h-16 flex items-center px-6 border-b border-border">
         <Link href={`/${lang}`} className="flex items-center gap-3 text-foreground transition-opacity hover:opacity-80">
           <img 

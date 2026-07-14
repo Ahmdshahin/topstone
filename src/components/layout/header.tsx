@@ -2,11 +2,13 @@
 
 import { useAuth } from "@/providers/auth-provider";
 import { useTranslation } from "@/providers/translation-provider";
-import { Search, Bell, Globe, Sun, Moon } from "lucide-react";
+import { Search, Bell, Globe, Sun, Moon, Menu } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { Sidebar } from "./sidebar";
 
 export function Header() {
   const pathname = usePathname();
@@ -44,8 +46,21 @@ export function Header() {
   };
 
   return (
-    <header className="h-16 border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-6">
-      <div className="flex items-center gap-4 flex-1">
+    <header className="h-16 border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 md:px-6">
+      <div className="flex items-center gap-2 md:gap-4 flex-1">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="md:hidden">
+              <Menu className="w-5 h-5" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side={lang === 'ar' ? 'right' : 'left'} className="p-0 w-64 border-none">
+            <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+            <Sidebar className="flex w-full" />
+          </SheetContent>
+        </Sheet>
+        
         <h1 className="text-xl font-light tracking-tight hidden md:block">
           {getPageTitle()}
         </h1>
