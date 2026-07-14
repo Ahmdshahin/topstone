@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-// import { updateSession } from "@/lib/supabase/middleware";
+import { updateSession } from "@/lib/supabase/middleware";
 
 const locales = ['ar', 'en'];
 const defaultLocale = 'ar';
@@ -29,9 +29,7 @@ export async function middleware(request: NextRequest) {
     }
 
     // 2. Handle Supabase Auth (on the rewritten/redirected URL)
-    // TEMPORARILY DISABLED TO ISOLATE VERCEL EDGE CRASH
-    // return await updateSession(request);
-    return NextResponse.next();
+    return await updateSession(request);
   } catch (error: any) {
     return new Response(`Middleware Error: ${error?.message || String(error)}`, { status: 200, headers: { 'content-type': 'text/plain' } });
   }
