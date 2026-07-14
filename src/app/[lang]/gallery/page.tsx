@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "motion/react";
 import { Loader2, Globe, Sun, Moon, Image as ImageIcon, FolderKanban } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useTranslation } from "@/providers/translation-provider";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
@@ -124,11 +125,12 @@ export default function GalleryPage() {
                         
                         <div className="relative aspect-[4/3] bg-secondary overflow-hidden z-0">
                           {project.hero_image_url ? (
-                            <img 
+                            <Image 
                               src={project.hero_image_url} 
                               alt={project.title}
-                              className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
-                              loading="lazy"
+                              fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              className="object-cover transition-transform duration-500 group-hover:scale-105"
                             />
                           ) : (
                             <div className="flex items-center justify-center h-full w-full bg-secondary">
@@ -188,11 +190,12 @@ export default function GalleryPage() {
 
                         <div className="relative aspect-[4/3] bg-secondary overflow-hidden z-0">
                           {photo.public_url ? (
-                            <img 
+                            <Image 
                               src={photo.public_url} 
                               alt={photo.alt_text || photo.file_name}
-                              className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
-                              loading="lazy"
+                              fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              className="object-cover transition-transform duration-500 group-hover:scale-105"
                             />
                           ) : (
                             <div className="flex items-center justify-center h-full w-full bg-secondary">
