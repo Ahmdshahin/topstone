@@ -54,6 +54,11 @@
   "presentation": {
     "approve": "اعتماد التصميم",
     "approved": "تم الاعتماد!",
+    "clientPresentation": "عرض تقديمي للعميل",
+    "preparedFor": "تم الإعداد خصيصاً لـ",
+    "welcome": "مرحباً بكم في العرض التقديمي.",
+    "tbd": "يُحدد لاحقاً",
+    "justStarted": "بدأ للتو",
     "vision": "الرؤية",
     "comparison": "المقارنة",
     "materials": "المواد",

@@ -64,25 +64,29 @@ export default async function PresentationPage({
   const diffWeeks = differenceInWeeks(approvedAt, createdAt);
   const diffDays = differenceInDays(approvedAt, createdAt);
   
-  let calculatedTimeline = "Just started";
+  let calculatedTimeline = dict.presentation?.justStarted || "Just started";
   if (diffWeeks > 0) {
-    calculatedTimeline = `${diffWeeks} Week${diffWeeks > 1 ? 's' : ''}`;
+    calculatedTimeline = lang === 'ar' 
+      ? `${diffWeeks} ${diffWeeks === 1 ? 'أسبوع' : diffWeeks === 2 ? 'أسبوعين' : diffWeeks <= 10 ? 'أسابيع' : 'أسبوع'}` 
+      : `${diffWeeks} Week${diffWeeks > 1 ? 's' : ''}`;
   } else if (diffDays > 0) {
-    calculatedTimeline = `${diffDays} Day${diffDays > 1 ? 's' : ''}`;
+    calculatedTimeline = lang === 'ar'
+      ? `${diffDays} ${diffDays === 1 ? 'يوم' : diffDays === 2 ? 'يومين' : diffDays <= 10 ? 'أيام' : 'يوم'}`
+      : `${diffDays} Day${diffDays > 1 ? 's' : ''}`;
   }
 
   // 3. Construct Live Data
   const livePresentationData: PresentationData = {
     title: project.title,
     clientName: project.client_name || "Unknown Client",
-    description: project.description || "Welcome to the presentation.",
+    description: project.description || dict.presentation?.welcome || "Welcome to the presentation.",
     heroImage: project.hero_image_url || design?.after_image_url || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2940&auto=format&fit=crop", // Fallback only if totally empty
     beforeImage: design?.before_image_url || "",
     afterImage: design?.after_image_url || "",
     beforeImages: design?.before_images || [],
     afterImages: design?.after_images || [],
     model3dUrl: design?.model_3d_url || "",
-    price: design?.price || "TBD",
+    price: design?.price || dict.presentation?.tbd || "TBD",
     timeline: calculatedTimeline,
     views: Math.floor(Math.random() * 50) + 1, // Keep mock live views for demo purposes
     materials: materials.map((m: any) => ({

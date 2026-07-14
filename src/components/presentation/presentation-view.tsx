@@ -6,11 +6,13 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { ImageComparison } from "@/components/gallery/image-comparison";
 import { PhotoSlider } from "@/components/gallery/photo-slider";
 import { cn } from "@/lib/utils";
-import { MessageSquare, Download, Calendar, DollarSign, Box, Check, X, Heart, QrCode, ArrowLeft } from "lucide-react";
+import { MessageSquare, Download, Calendar, DollarSign, Box, Check, X, Heart, QrCode, ArrowLeft, Globe, Sun, Moon } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import dynamic from "next/dynamic";
 import { useTranslation } from "@/providers/translation-provider";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
 
 // Dynamically import the heavy WebGL 3D Viewer to prevent blocking initial page load
 const ModelViewer3D = dynamic(
@@ -68,10 +70,16 @@ export function PresentationView({
   });
 
   const { dict } = useTranslation();
+  const { theme, setTheme } = useTheme();
   const [hasLiked, setHasLiked] = useState(false);
   const [showQR, setShowQR] = useState(false);
   const [status, setStatus] = useState<"pending" | "approved" | "revision">("pending");
   const [currentUrl, setCurrentUrl] = useState("");
+
+  const toggleLanguage = () => {
+    const nextLang = lang === 'ar' ? 'en' : 'ar';
+    window.location.href = window.location.href.replace(`/${lang}/`, `/${nextLang}/`);
+  };
 
   useEffect(() => {
     setCurrentUrl(window.location.href);
@@ -117,7 +125,28 @@ export function PresentationView({
   return (
     <div ref={containerRef} className="relative bg-background text-foreground min-h-screen font-sans selection:bg-primary selection:text-primary-foreground pb-32">
       
-      {/* ─── FLOATING BACK BUTTON ─── */}
+      {/* ─── FLOATING TOP CONTROLS ─── */}
+      <div className="fixed top-6 right-6 z-50 flex items-center gap-2">
+        <Button 
+          variant="outline" 
+          onClick={toggleLanguage}
+          className="bg-black/50 backdrop-blur-md border-white/20 text-white hover:bg-black/70 hover:text-white rounded-full font-medium"
+        >
+          <Globe className="w-4 h-4 mr-2" />
+          {lang === 'ar' ? 'En' : 'عربي'}
+        </Button>
+        <Button 
+          variant="outline" 
+          size="icon"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="bg-black/50 backdrop-blur-md border-white/20 text-white hover:bg-black/70 hover:text-white rounded-full"
+        >
+          <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </div>
+
       {fromGallery && (
         <div className="fixed top-6 left-6 z-50">
           <Link href={`/${lang}/gallery`} className="flex items-center gap-2 bg-black/50 backdrop-blur-md border border-white/20 text-white px-5 py-2.5 rounded-full shadow-lg hover:bg-black/70 transition-colors text-sm font-medium">
@@ -147,7 +176,7 @@ export function PresentationView({
             transition={{ duration: 1, ease: "easeOut" }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-medium tracking-wide uppercase mb-8"
           >
-            Client Presentation
+            {dict.presentation?.clientPresentation || "Client Presentation"}
           </motion.div>
           
           <motion.h1 
@@ -165,7 +194,7 @@ export function PresentationView({
             transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
             className="text-xl md:text-2xl text-white/80 font-light max-w-3xl"
           >
-            Prepared exclusively for <span className="font-medium text-white">{data.clientName}</span>
+            {dict.presentation?.preparedFor || "Prepared exclusively for"} <span className="font-medium text-white">{data.clientName}</span>
           </motion.p>
         </div>
       </section>

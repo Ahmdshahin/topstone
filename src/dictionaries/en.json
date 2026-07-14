@@ -54,6 +54,11 @@
   "presentation": {
     "approve": "Approve Design",
     "approved": "Approved!",
+    "clientPresentation": "Client Presentation",
+    "preparedFor": "Prepared exclusively for",
+    "welcome": "Welcome to the presentation.",
+    "tbd": "TBD",
+    "justStarted": "Just started",
     "vision": "Vision",
     "comparison": "Comparison",
     "materials": "Materials",
