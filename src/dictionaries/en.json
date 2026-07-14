@@ -223,5 +223,43 @@
     "viewOnMap": "View on Map",
     "notSpecified": "Not specified",
     "created": "Created"
+  },
+  "createProjectWizard": {
+    "backToProjects": "Back to Projects",
+    "title": "Create New Project",
+    "description": "Set up the foundation for your next facade design.",
+    "steps": {
+      "details": "Details",
+      "beforePhotos": "Before Photos",
+      "afterPhotos": "After Photos",
+      "model3d": "3D Model",
+      "materials": "Materials",
+      "heroSection": "Hero Section"
+    },
+    "stepDescriptions": {
+      "1_title": "Project Information",
+      "1_desc": "Define the core details for this project.",
+      "2_title": "Site Photos (Before)",
+      "2_desc": "Upload all photos of the site's current state. Select one to be the main 'Before' image.",
+      "3_title": "Render Photos (After)",
+      "3_desc": "Upload all architectural renders. Select one to be the main 'After' image.",
+      "4_title": "3D Model",
+      "4_desc": "Upload the primary interactive 3D model (.glb file) for the client presentation.",
+      "5_title": "Select Materials",
+      "5_desc": "Select the finishes and materials used in this project.",
+      "6_title": "Hero Section Cover",
+      "6_desc": "Select the showcase photo that will appear at the very top of the Client Presentation."
+    },
+    "form": {
+      "projectTitle": "Project Title",
+      "projectTitlePlaceholder": "e.g. Al-Riyadh Corporate Headquarters",
+      "client": "Client",
+      "selectClient": "Select a client...",
+      "googleMapsUrl": "Google Maps Location URL (Optional)",
+      "googleMapsPlaceholder": "https://maps.google.com/...",
+      "status": "Status",
+      "continue": "Continue",
+      "createProject": "Create Project"
+    }
   }
 }

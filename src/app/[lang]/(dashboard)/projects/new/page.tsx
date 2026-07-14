@@ -34,7 +34,7 @@ export default function ProjectCreationWizard() {
   
   const router = useRouter();
   const { user } = useAuth();
-  const { lang } = useTranslation();
+  const { dict, lang } = useTranslation();
 
   const [clients, setClients] = useState<any[]>([]);
   const [globalMaterials, setGlobalMaterials] = useState<any[]>([]);
@@ -259,23 +259,23 @@ export default function ProjectCreationWizard() {
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto py-8">
       <Link href={`/${lang}/projects`} className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors">
-        <ArrowLeft className="w-4 h-4 mr-1 rtl:rotate-180" /> Back to Projects
+        <ArrowLeft className="w-4 h-4 mr-1 rtl:rotate-180" /> {dict.createProjectWizard?.backToProjects || "Back to Projects"}
       </Link>
 
       <div className="mb-8">
-        <h2 className="text-3xl font-light tracking-tight mb-2">Create New Project</h2>
-        <p className="text-muted-foreground">Set up the foundation for your next facade design.</p>
+        <h2 className="text-3xl font-light tracking-tight mb-2">{dict.createProjectWizard?.title || "Create New Project"}</h2>
+        <p className="text-muted-foreground">{dict.createProjectWizard?.description || "Set up the foundation for your next facade design."}</p>
       </div>
 
       {/* Step Indicator */}
       <div className="flex items-center gap-2 mb-8 overflow-x-auto pb-4">
         {[
-          { num: 1, label: "Details" },
-          { num: 2, label: "Before Photos" },
-          { num: 3, label: "After Photos" },
-          { num: 4, label: "3D Model" },
-          { num: 5, label: "Materials" },
-          { num: 6, label: "Hero Section" }
+          { num: 1, label: dict.createProjectWizard?.steps?.details || "Details" },
+          { num: 2, label: dict.createProjectWizard?.steps?.beforePhotos || "Before Photos" },
+          { num: 3, label: dict.createProjectWizard?.steps?.afterPhotos || "After Photos" },
+          { num: 4, label: dict.createProjectWizard?.steps?.model3d || "3D Model" },
+          { num: 5, label: dict.createProjectWizard?.steps?.materials || "Materials" },
+          { num: 6, label: dict.createProjectWizard?.steps?.heroSection || "Hero Section" }
         ].map((s, i) => (
           <React.Fragment key={s.num}>
             <div className="flex items-center gap-2 shrink-0">
@@ -295,20 +295,20 @@ export default function ProjectCreationWizard() {
           <Card className="shadow-sm border-border bg-card overflow-hidden">
             <CardHeader className="bg-secondary/20 border-b border-border">
               <CardTitle>
-                {step === 1 && "Project Information"}
-                {step === 2 && "Site Photos (Before)"}
-                {step === 3 && "Render Photos (After)"}
-                {step === 4 && "3D Model"}
-                {step === 5 && "Select Materials"}
-                {step === 6 && "Hero Section Cover"}
+                {step === 1 && (dict.createProjectWizard?.stepDescriptions?.['1_title'] || "Project Information")}
+                {step === 2 && (dict.createProjectWizard?.stepDescriptions?.['2_title'] || "Site Photos (Before)")}
+                {step === 3 && (dict.createProjectWizard?.stepDescriptions?.['3_title'] || "Render Photos (After)")}
+                {step === 4 && (dict.createProjectWizard?.stepDescriptions?.['4_title'] || "3D Model")}
+                {step === 5 && (dict.createProjectWizard?.stepDescriptions?.['5_title'] || "Select Materials")}
+                {step === 6 && (dict.createProjectWizard?.stepDescriptions?.['6_title'] || "Hero Section Cover")}
               </CardTitle>
               <CardDescription>
-                {step === 1 && "Define the core details for this project."}
-                {step === 2 && "Upload all photos of the site's current state. Select one to be the main 'Before' image."}
-                {step === 3 && "Upload all architectural renders. Select one to be the main 'After' image."}
-                {step === 4 && "Upload the primary interactive 3D model (.glb file) for the client presentation."}
-                {step === 5 && "Select the finishes and materials used in this project."}
-                {step === 6 && "Select the showcase photo that will appear at the very top of the Client Presentation."}
+                {step === 1 && (dict.createProjectWizard?.stepDescriptions?.['1_desc'] || "Define the core details for this project.")}
+                {step === 2 && (dict.createProjectWizard?.stepDescriptions?.['2_desc'] || "Upload all photos of the site's current state. Select one to be the main 'Before' image.")}
+                {step === 3 && (dict.createProjectWizard?.stepDescriptions?.['3_desc'] || "Upload all architectural renders. Select one to be the main 'After' image.")}
+                {step === 4 && (dict.createProjectWizard?.stepDescriptions?.['4_desc'] || "Upload the primary interactive 3D model (.glb file) for the client presentation.")}
+                {step === 5 && (dict.createProjectWizard?.stepDescriptions?.['5_desc'] || "Select the finishes and materials used in this project.")}
+                {step === 6 && (dict.createProjectWizard?.stepDescriptions?.['6_desc'] || "Select the showcase photo that will appear at the very top of the Client Presentation.")}
               </CardDescription>
             </CardHeader>
             
@@ -323,9 +323,9 @@ export default function ProjectCreationWizard() {
                       name="title"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Project Title</FormLabel>
+                          <FormLabel>{dict.createProjectWizard?.form?.projectTitle || "Project Title"}</FormLabel>
                           <FormControl>
-                            <Input placeholder="e.g. Al-Riyadh Corporate Headquarters" className="bg-secondary/50" {...field} />
+                            <Input placeholder={dict.createProjectWizard?.form?.projectTitlePlaceholder || "e.g. Al-Riyadh Corporate Headquarters"} className="bg-secondary/50" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -338,12 +338,12 @@ export default function ProjectCreationWizard() {
                         name="client_id"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Client</FormLabel>
+                            <FormLabel>{dict.createProjectWizard?.form?.client || "Client"}</FormLabel>
                             <select 
                               className="w-full flex h-10 rounded-md border border-input bg-secondary/50 px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                               {...field}
                             >
-                              <option value="" disabled>Select a client...</option>
+                              <option value="" disabled>{dict.createProjectWizard?.form?.selectClient || "Select a client..."}</option>
                               {clients.map(c => (
                                 <option key={c.id} value={c.id}>{c.name}</option>
                               ))}
@@ -358,10 +358,10 @@ export default function ProjectCreationWizard() {
                         control={form.control}
                         name="location_url"
                         render={({ field }) => (
-                          <FormItem className="md:col-span-1">
-                            <FormLabel>Google Maps Location URL (Optional)</FormLabel>
+                          <FormItem>
+                            <FormLabel>{dict.createProjectWizard?.form?.googleMapsUrl || "Google Maps Location URL (Optional)"}</FormLabel>
                             <FormControl>
-                              <Input placeholder="https://maps.google.com/..." className="bg-secondary/50" {...field} />
+                              <Input placeholder={dict.createProjectWizard?.form?.googleMapsPlaceholder || "https://maps.google.com/..."} className="bg-secondary/50" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -601,21 +601,24 @@ export default function ProjectCreationWizard() {
 
               </AnimatePresence>
             </CardContent>
-            
             <CardFooter className="bg-secondary/10 border-t border-border p-6 flex justify-between items-center">
               {step > 1 ? (
-                <Button type="button" variant="outline" onClick={() => setStep(step - 1)} disabled={isSubmitting}>Back</Button>
+                <Button type="button" variant="outline" onClick={() => setStep(step - 1)} disabled={isSubmitting}>
+                  {dict.createProjectWizard?.backToProjects ? dict.createProjectWizard.backToProjects.split(" ")[0] : "Back"}
+                </Button>
               ) : (
                 <div />
               )}
               
               {step < 6 ? (
-                <Button type="button" onClick={() => validateAndNext(step)} className="shadow-md">Continue</Button>
+                <Button type="button" onClick={() => validateAndNext(step)} className="shadow-md">
+                  {dict.createProjectWizard?.form?.continue || "Continue"}
+                </Button>
               ) : (
                 <div className="flex items-center gap-4">
                   {isSubmitting && <span className="text-sm text-muted-foreground animate-pulse">{uploadProgress}</span>}
                   <Button type="submit" disabled={isSubmitting} className="shadow-lg shadow-primary/20">
-                    {isSubmitting ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Finalizing...</> : <><CheckCircle2 className="w-4 h-4 mr-2" /> Create Project</>}
+                    {isSubmitting ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {uploadProgress || "Saving..."}</> : <><CheckCircle2 className="w-4 h-4 mr-2" /> {dict.createProjectWizard?.form?.createProject || "Create Project"}</>}
                   </Button>
                 </div>
               )}
