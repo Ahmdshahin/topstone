@@ -1,10 +1,9 @@
 "use server";
 
 import { createClient } from "@supabase/supabase-js";
-import { unstable_noStore as noStore } from "next/cache";
+import { unstable_cache } from "next/cache";
 
-export async function getPublicGalleryData() {
-  noStore();
+export const getPublicGalleryData = unstable_cache(async () => {
   
   // Use the service role key to bypass RLS for public gallery read
   const supabase = createClient(
@@ -46,4 +45,4 @@ export async function getPublicGalleryData() {
     projects: projectsData || [],
     photos: photosData || []
   };
-}
+}, ['public-gallery-data'], { revalidate: 3600, tags: ['gallery'] });
