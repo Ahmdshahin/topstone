@@ -3,15 +3,19 @@ import { createClient } from '@supabase/supabase-js';
 
 // We use the service role key here to bypass RLS and ensure logs are ALWAYS written,
 // even if the user is unauthenticated or has a broken session.
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
-  auth: { persistSession: false }
-});
-
 export async function POST(request: Request) {
   try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+    if (!supabaseUrl) {
+      return NextResponse.json({ error: 'Supabase URL is missing' }, { status: 500 });
+    }
+
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
+      auth: { persistSession: false }
+    });
+
     const body = await request.json();
     const { level, message, metadata } = body;
 
