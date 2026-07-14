@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { TranslationProvider } from "@/providers/translation-provider";
 import { OfflineToast } from "@/components/ui/offline-toast";
 import { getDictionary } from "@/lib/dictionaries";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const cairo = Cairo({ subsets: ["arabic", "latin"], variable: "--font-cairo" });
@@ -48,6 +49,7 @@ export default async function RootLayout({
             </AuthProvider>
           </TranslationProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
