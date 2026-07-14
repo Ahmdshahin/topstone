@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
     // 2. Handle Supabase Auth (on the rewritten/redirected URL)
     return await updateSession(request);
   } catch (error: any) {
-    return new Response(`Middleware Error: ${error?.message || String(error)}`, { status: 500 });
+    return new Response(`Middleware Error: ${error?.message || String(error)}`, { status: 200, headers: { 'content-type': 'text/plain' } });
   }
 }
 
