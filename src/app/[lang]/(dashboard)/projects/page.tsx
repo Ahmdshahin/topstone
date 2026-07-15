@@ -1,5 +1,6 @@
-import { toast } from "sonner";
 "use client";
+
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

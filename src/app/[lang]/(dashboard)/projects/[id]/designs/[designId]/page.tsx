@@ -1,5 +1,6 @@
-import { toast } from "sonner";
 "use client";
+
+import { toast } from "sonner";
 
 import React, { useEffect, useState, useRef } from "react";
 import { ArrowLeft, Save, Loader2, Image as ImageIcon, Trash2, Plus } from "lucide-react";

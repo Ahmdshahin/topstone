@@ -1,5 +1,6 @@
-import { toast } from "sonner";
 "use client";
+
+import { toast } from "sonner";
 
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
@@ -115,7 +116,7 @@ export default function ManageGalleryPage() {
   };
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-3xl font-light tracking-tight">{dict.manageGallery?.title || "Manage Gallery"}</h2>
@@ -138,7 +139,7 @@ export default function ManageGalleryPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleUpload} className="space-y-6 max-w-xl">
+          <form onSubmit={handleUpload} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="photo-upload">{dict.manageGallery?.selectImages || "Select Images (Select multiple for an album)"}</Label>
               <Input 
