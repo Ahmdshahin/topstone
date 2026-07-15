@@ -186,7 +186,7 @@ export default function ProjectsPage() {
                         <DropdownMenuContent align="end">
                           <DropdownMenuLabel>Actions</DropdownMenuLabel>
                           <DropdownMenuItem asChild>
-                            <Link href={`/${lang}/projects/${project.id}/edit`}>
+                            <Link href={`/${lang}/projects/${project.id}`}>
                               {dict.manageGallery?.edit || "Edit"}
                             </Link>
                           </DropdownMenuItem>
